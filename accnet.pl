@@ -543,9 +543,9 @@ sub clusteringNetwork {
 ######Usage subrutine
 sub usage {
 	print "Usage:\n\n";
-	print "Accesory genes Network (ACCNET) v1.1.2\n";
+	print "Accesory genes Network (ACCNET) v1.2\n";
 	print "writen by: Val F. Lanza (valfernandez.vf\@gmail.com)\n\n";
-	print "Accesory Network for genomes.\n\nSimple:		accnet.pl --in *.faa\nAdvance:	accnet.pl --in *.faa --threshold 0.8 --kp '-s 1.5 -e 1e-8 -c 0.8' --out Network_example.csv --tblout Table_example.csv\n\nWhole genomes. Only recommended for plasmids or inter-species comparisson.\n\n		accnet.pl --in *.faa --threshold 1.1\n";
+	print "Accesory Network for genomes.\n\nSimple:		accnet.pl --in *.faa\nAdvance:	accnet.pl --in *.faa --threshold 0.8 --kp '-s 1.5 -e 1e-8 -c 0.8' --out Network_example.csv --tblout Table_example.csv --fast Yes --clustering Yes\n\nWhole genomes. Only recommended for plasmids or inter-species comparisson.\n\n		accnet.pl --in *.faa --threshold 1.1\n";
 
 	print "\nParameters:\n\n";
 	foreach (@Options) {

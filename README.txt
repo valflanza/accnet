@@ -1,6 +1,6 @@
-AccNET V1.1.3 - Accessory Constellation Network.
+AccNET V1.2 - Accessory Constellation Network.
 
-Last update: 09/03/2016
+Last update: 12/16/2016
 
 Developed by: Val F. Lanza. (valfernandez.vf@gmail.com)
 
@@ -34,6 +34,9 @@ OUTPUT DATA
 	
  -Representatives.faa FASTA file with representative AA sequence of
 					  each cluster (HPC).
+					  
+ -Cluster.csv	      (Optional) Table with the node clusters (GU and HpC)
+					  at different thresholds and methods.
 
 	please read the VISUALIZATION secction.
 
@@ -48,7 +51,7 @@ Accesory Network for genomes.
 						  --kp '-s 1.5 -e 1e-8 -c 0.8' 
 						  --out Network_example.csv 
 						  --tblout Table_example.csv
-						  --fast yes
+						  --fast yes --clustering yes
 	
 Whole genomes. Only recommended for plasmids or inter-species comparisson.
 
@@ -63,6 +66,9 @@ VISUALIZATION:
 	-Select "Network.csv" as "Edges Table"
 	-Import spreadsheet (File -> Import spreadsheet...)
 	-Select "Table.csv" as "Nodes Table"
+	(Optional)
+	-Import spreadsheet (File -> Import spreadsheet...)
+	-Select "Cluster.csv" as "Nodes Table"
 
 #Cytoscape visualization (http://www.cytoscape.org/)
 	-version 2.8.x
@@ -78,6 +84,13 @@ VISUALIZATION:
 		
 		-Import Node Attributes (File -> Import -> Attibutes from Table)
 		-Select "Table.csv" file
+		-Select delimiter "Tab"
+		-Import column headers ("Show Text File Import Options"
+							-> "Transfer first line as attribute names")
+		-Import
+		(Optional)
+		-Import Node Attributes (File -> Import -> Attibutes from Table)
+		-Select "Cluster.csv" file
 		-Select delimiter "Tab"
 		-Import column headers ("Show Text File Import Options"
 							-> "Transfer first line as attribute names")
@@ -100,14 +113,21 @@ VISUALIZATION:
 		-Import column headers ("Show Text File Import Options"
 							 ->"Transfer first line as attribute names")
 		-Import
+		(Optional)
+		-Import Node Attributes (File -> Import -> Table -> File)
+		-Select "Cluster.csv" file
+		-Select delimiter "Tab"
+		-Import column headers ("Show Text File Import Options"
+							 ->"Transfer first line as attribute names")
+		-Import
 			
 
 NETWORK CLUSTERING
 
-Since AccNET v1.1.3 Clustering.r script has been added to the project. 
-Clustering.r script performs a clustering analysis that found both GU 
-and HpC clusters based on the network adjacent matrix. Clustering.r are 
-written in R language and requires the libraries dplyr, tidyverse, cluster
+Since AccNET v1.2 Clustering network process has been added to the project. 
+Clustering network performs a clustering analysis that found both GU 
+and HpC clusters based on the network adjacent matrix. Clustering network process 
+are written in R language and requires the libraries dplyr, tidyr, cluster
 and mclust. GU clusters are calculated by two methods: first with mclust 
 (Gaussian Mixture Modelling for Model-Based Clustering,Classification, and 
 Density Estimation) and second by hierarchical clustering. In HpC case, 
@@ -120,13 +140,11 @@ clusters. The cut points are calculated as the quantiles 75, 85, 90, 95 and
 99 of tree heights. The resulting output file is a tab format file that 
 can be loaded in Gephi or Cytoscape.
 
-Command line example (command has to be executed in the Network.csv folder):
-
-	R -f /path/to/Clusering.r
 
 Installing dependencies:
 Open R and type:
-	install.packages(tidyverse)
+	install.packages(dplyr)
+	install.packages(tidyr)
 	install.packages(cluster)
 	install.packages(mclust)
 			
@@ -134,33 +152,18 @@ Open R and type:
 			
 DEPENDENCIES;
 
-All dependencies must be included in PATH variable.
+Since accnet 1.2:
 
-	- kClust: ftp://toolkit.lmb.uni-muenchen.de/pub/kClust/
-	  (Hauser et al., 2013) kClust: fast and sensitive clustering 
-	  of large protein sequence databases. BMC bioinformatics.
-	  PMID: 23945046
-
-	- trimAl: http://trimal.cgenomics.org/downloads
-	  trimAl: a tool for automated alignment trimming in large-scale 
-	  phylogenetic analyses.Salvador Capella-Gutierrez; Jose M. Silla-Martinez; 
-	  Toni Gabaldon. Bioinformatics 2009 25: 1972-1973.
+	- R software
+		- dplyr
+		- tidyr
+		- cluster
+		- mclust
 	
-	- muscle: http://www.drive5.com/muscle/ & linux common repositories
-	  Edgar, R.C. (2004) MUSCLE: multiple sequence alignment with high 
-	  accuracy and high throughput. Nucleic Acids Res. 32(5):1792-1797
-	  
-	  *Linux command line installation: "sudo apt-get install muscle" or 
-							"sudo yum install muscle"
-
-	- PHYLIP: http://evolution.genetics.washington.edu/phylip.html 
-			  & linux common repositories
-	  Felsenstein, J. (1993). PHYLIP (phylogeny inference package), 3.5 c ed. 
-	  Department of Genetics, University of Washington.
-	  
-	  *Linux command line installation: "sudo apt-get install phylip" or 
-							"sudo yum install phylip"
-	  
-	Perl packages dependencies:
+	- Perl packages dependencies:
 		-List::Util  		(Core-modules)
 		-Getopt::Long 		(Core-modules)
+		-Statistics::R		(Installation: 
+								sudo apt-get install libstatistics-r-perl
+								or
+								sudo yum install libstatistics-r-perl)
