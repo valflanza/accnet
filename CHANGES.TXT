@@ -1,4 +1,8 @@
 ## AccNET VERSION CHANGES
+v1.2
+- Dependencies are now included in the distribution
+- Clustering script is now embeded in main software
+- Created github repository (https://github.com/valflanza/accnet)
 
 v1.1.3
 - Added Clustering.r script.
