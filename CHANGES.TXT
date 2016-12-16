@@ -1,0 +1,14 @@
+## AccNET VERSION CHANGES
+
+v1.1.3
+- Added Clustering.r script.
+
+V1.1.2
+
+-Removed "Term::ProgressBar" dependencie.
+V1.1.1
+
+- Added "fast" option.
+V1.1
+
+- Added "representatives.faa" output file.
