@@ -66,7 +66,7 @@ rownames(Net.prot.matrix) = tmp
 rm(tmp)
 
 Net.prot.dist = dist(Net.prot.matrix, method = "binary")
-Net.prot.dend = hclust(Net.prot.dist, method = "average")
+Net.prot.dend = hclust(Net.prot.dist)
 qnames = c(0.75, 0.85, 0.90, 0.95, 0.99)
 q = quantile(Net.prot.dend$height, probs = qnames)
 j = 1
@@ -107,3 +107,4 @@ write.table(
   sep = "\t",
   quote = FALSE
 )
+
