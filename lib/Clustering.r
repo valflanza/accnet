@@ -4,6 +4,7 @@ library(mclust)
 library(cluster)
 
 
+setwd(runPath)
 Net = read.table(TableFile, header = TRUE)
 Net.matrix = Net %>% group_by(Source, Target) %>% summarise(value = 1) %>% spread(Source, value, fill = 0)
 tmp = Net.matrix$Target

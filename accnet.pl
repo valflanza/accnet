@@ -4,6 +4,7 @@ use List::Util; qw(first max maxstr min minstr reduce shuffle sum);
 use strict;
 use Getopt::Long;
 use Cwd 'abs_path';
+use Cwd;
 use warnings;
 use Statistics::R;
 
@@ -95,7 +96,7 @@ my $R;
 
 my $PATH = abs_path($0);
 $PATH =~ s/\/accnet.pl//;
-
+my $RUNPATH = getcwd();
 
 
 ############### SET COMMAND LINE OPTIONS #################################
@@ -139,9 +140,11 @@ $indexStrain=1;
 open(O,">equivalence.txt");
 foreach $ar (@inFiles)
 {
+	@c2 = split("/",$ar);
+	@c = split('\.',$c2[-1]);
 	
-	@c = split('\.',$ar);
 	$tax=$c[0];
+	$tax =~ s/$RUNPATH//;
 	$taxasHash{$indexStrain}=$tax;
 	
 	$indexProt=0;
@@ -536,6 +539,7 @@ sub clusteringNetwork {
 	$R = Statistics::R->new(shared => 1);
 	$R->start();
 	$R->set('TableFile',$outFile);
+	$R->set('runPath',$RUNPATH);
 	$R->run_from_file("$PATH/lib/Clustering.r");
 	$R-> stop();
 }
