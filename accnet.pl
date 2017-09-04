@@ -144,7 +144,7 @@ foreach $ar (@inFiles)
 	@c = split('\.',$c2[-1]);
 	
 	$tax=$c[0];
-	$tax =~ s/$RUNPATH//;
+	
 	$taxasHash{$indexStrain}=$tax;
 	
 	$indexProt=0;
